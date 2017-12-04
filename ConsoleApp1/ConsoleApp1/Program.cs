@@ -7,6 +7,8 @@ namespace Treehouse
     {
         static void Main()
         {
+
+            // HASHSET EXAMPLE
             List<Student> students = new List<Student>
             {
                 new Student() { Name = "Sally", GradeLevel = 3 },
@@ -23,6 +25,23 @@ namespace Treehouse
             {
                 Console.WriteLine($"{student.Name} is in grade {student.GradeLevel}");
             }
+
+            // DICTIONARY EXAMPLE
+            while (true)
+            {
+            Console.Write(": ");
+            string input = Console.ReadLine();
+
+           if (string.IsNullOrWhiteSpace(input))
+           {
+                break;
+           }
+
+            string output = MorseCodeTranslator.ToMorse(input);
+
+            Console.WriteLine(output);
+            }
+
         }
     }
 }

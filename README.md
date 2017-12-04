@@ -127,3 +127,21 @@ foreach(Student student in students) {
 }
 ```
 
+**HashSet**
+
+- To search efficiently but the items doesn't have to be sorted. `ISet`
+- Sets don't allow duplicates
+- See code example School.
+
+**Dictionary**
+
+- Key to value
+- See code example Morse Code.
+
+**Others**
+- See `System.Collections.Generic`
+- Linked List
+- Queue (FIFO)
+- Stack (LIFO)
+- SortedDictionary
+- SortedSet
