@@ -1,0 +1,78 @@
+# example-aspnet-collections
+#### Example of various data collections ####
+
+C# Collections
+https://teamtreehouse.com/library/jagged-arrays
+
+- Creating an example spreadsheet object.
+- All arrays must specify the size.
+- Arrays are fast for storing and updating because the data are stored synchronously in memory.  But bad for adding and removing items since it requires allocating memory slots.
+
+```csharp
+class Cell {
+  public string Contents { get; set; }
+}
+
+/* 
+causes error Cell[][] sheet = new Cell[100][10]; 
+because compiler thinks we're instantiating an array and then access item in index 10 and assigning to the sheet variable
+*/
+
+Cell[][] sheet = new Cell[100][];
+
+// instead to do an array of 100 containing an array of 10 you have to run an array, this is called creating a jagged array since you can have the inner array be of various size
+
+for (int i = 0; i < sheet.Length; i++) {
+	sheet[i] = new Cell[10];
+    for(int ci = 0; ci < sheet[i].Length; ci++) {
+    	sheet[i][ci] = new Cell();
+    }
+}
+
+// foreach output example
+foreach(Cell[] row in sheet) {
+	foreach(Cell cell in row) {
+    	System.Console.Write(cell);
+    }
+    System.Console.WriteLine();
+}
+
+// multidimensional arrays
+Cell[,] sheet = new Cell[100,10];
+Console.Write(sheet.Length) //1000
+
+// multidimensional array of cells
+for(int i = 0; i < sheet.GetLength(0); i++) { //100
+	for ci = 0; ci < sheet.GetLength(1); ci++) { //10
+    	sheet[i,ci] = new Cell(); //assign each index with cell obj
+    }
+}
+
+// you can't use nested foreach loop to print out the values with multidimensional unlike a jagged array since the multidimensional array is just one large array that is subdivided into equal size parts.  so there's no inner looping to do.
+
+// 3-dimensional jagged array - with this jagged array you still need to loop through and initalize them.  
+Cell [][][] sheet = new Cell[100][][];
+
+// 3-dimensional array.  You can do up to 32 dimensions.
+int [,,] threeDimMatrix = new int[5,5,5];
+
+// Jagged + multidimensional array = array of 5 3-dimensional array of integer arrays
+int[][,,][] yikes = new int[5][,,][];
+```
+
+- Array have a fix length and stored synchronously, so because of this it's bad for changing the size.  Look into `System.Array` for some built in methods.
+
+```csharp
+int[] ages = { 24, 31, 56 };
+int[] agesCopy = new int[4]; //create new array with the size we want
+
+// copy ages to agesCopy starting at index 1 which means index 0 is open to be inserted
+ages.CopyTo(agesCopy, 1); 
+
+// insert at 0
+agesCopy[0] = 16
+
+// same thing if you want to insert at the end.  a pain and very slow process.
+```
+- 
+
