@@ -4,6 +4,8 @@
 C# Collections
 https://teamtreehouse.com/library/jagged-arrays
 
+**Arrays**
+
 - Creating an example spreadsheet object.
 - All arrays must specify the size.
 - Arrays are fast for storing and updating because the data are stored synchronously in memory.  But bad for adding and removing items since it requires allocating memory slots.
@@ -74,5 +76,54 @@ agesCopy[0] = 16
 
 // same thing if you want to insert at the end.  a pain and very slow process.
 ```
-- 
+
+**Lists**
+
+- Lists have an Add method that allows easy insert to the end of the list.
+- A list is just a wrapper around the array object so its bound to the same shortfalls of array.  When an array that the list is using is out of space, it creates a new array with twice the size of the old array behind the scene.  But the wrapper takes care of this as well as any associated reference to that array.  Best to set the capacity of the list if possible.
+
+```csharp
+List<string> students = new List<string>(); // best to set a number for the capacity
+//students.Capacity; // 0
+students.Add("Angela");
+students.Add("Bill");
+//students.Capabity; // 4
+students.Add("Charles");
+students.Add("Dan");
+//students.Capabity; // 4
+students.Add("Ed");
+students.Add("Fred");
+//students.Capabity; // 8
+```
+- `students.Remove("Ed")` will return true and only remove the first instance of Ed.  The search is slow and the rearrangement can be slow if its near the beginning.  This can be sped up by sorting a list.
+- `students.Sort()` in place sort and sort by alphabetically / ascending.  To customize the sort, look into `IComparable interface`
+
+```csharp
+class Student : System.IComparable<Student> {
+	public string Name { get; set; }
+    public int GradeLevel { get; set; }
+    
+    public int CompareTo(Student that) {
+    	int result = this.Name.CompareTo(that.Name);
+        
+        if (result == 0) {
+        	result = this.GradeLevel.CompareTo(that.GradeLevel);
+        }
+        return result;
+    }
+}
+
+// in main()
+List<Student> students = new List<Student> {
+	new Student() { Name = "Sally", GradeLevel = 3 },
+    new Student() { Name = "Timmy", GradeLevel = 3 },
+    new Student() { Name = "Billy", GradeLevel = 2 },
+}
+
+students.Sort();
+
+foreach(Student student in students) {
+	Console.WriteLine($"{student.Name} is in grade {student.GradeLevel}");
+}
+```
 
